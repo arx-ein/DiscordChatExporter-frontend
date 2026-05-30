@@ -85,7 +85,7 @@ move "_temp\frontend" "..\release\dcef\frontend"
 
 @REM copy nginx
 mkdir "..\release\dcef\backend\nginx\conf\"
-call copy "dcef\backend\nginx\conf\nginx-prod.conf" "..\release\dcef\backend\nginx\conf\nginx-prod.conf" /y
+call copy "dcef\backend\nginx\conf\nginx-win-prod.conf" "..\release\dcef\backend\nginx\conf\nginx-win-prod.conf" /y
 call copy "dcef\backend\nginx\conf\mime.types" "..\release\dcef\backend\nginx\conf\mime.types" /y
 call copy "dcef\backend\nginx\dcefnginx.exe" "..\release\dcef\backend\nginx\dcefnginx.exe" /y
 

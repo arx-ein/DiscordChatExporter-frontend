@@ -133,14 +133,15 @@ def main(input_dir):
 
 
 def print_help():
-	print("Usage: python main.py <docker|windows>")
+	print("Usage: python main.py <docker|windows|linux>")
 
 if __name__ == "__main__":
 	if len(sys.argv) != 2:
 		print_help()
 		sys.exit(1)
 
-	if sys.argv[1] == "windows":
+	if sys.argv[1] in ("windows", "linux"):
+		# Relative to the binary's working directory: release/dcef/backend/preprocess/
 		input_dir = "../../../exports/"
 	elif sys.argv[1] == "docker":
 		input_dir = "/dcef/exports/"

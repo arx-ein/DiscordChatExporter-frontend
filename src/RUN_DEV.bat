@@ -34,7 +34,7 @@ split-pane -V -d %~dp0\dcef\backend\preprocess cmd /k nodemon -e py --ignore "__
 move-focus left; ^
 split-pane -H -d %~dp0\dcef\frontend cmd /k npm run dev; ^
 move-focus right; ^
-split-pane -H -d %~dp0 cmd /k "dcef\backend\nginx\dcefnginx.exe" -c "dcef\backend\nginx\conf\nginx-dev.conf"; ^
+split-pane -H -d %~dp0 cmd /k "dcef\backend\nginx\dcefnginx.exe" -c "dcef\backend\nginx\conf\nginx-win-dev.conf"; ^
 move-focus right; ^
 split-pane -H  -d %~dp0\dcef\backend\mongodb cmd /k "dcefmongod.exe" --dbpath "..\..\..\_temp\mongodb"
 

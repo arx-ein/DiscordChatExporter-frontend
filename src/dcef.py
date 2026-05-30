@@ -186,7 +186,7 @@ def start_nginx():
 	create_dir_if_not_exists(BASE_DIR + '/logs')
 	create_dir_if_not_exists(BASE_DIR + '/temp')
 	cwd = os.path.realpath(BASE_DIR)
-	args = ['dcef\\backend\\nginx\\dcefnginx.exe', '-c', 'dcef/backend/nginx/conf/nginx-prod.conf']
+	args = ['dcef\\backend\\nginx\\dcefnginx.exe', '-c', 'dcef/backend/nginx/conf/nginx-win-prod.conf']
 	th = threading.Thread(target=runner, args=('nginx', args, cwd), daemon=False)
 	th.start()
 	return th
