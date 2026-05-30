@@ -22,6 +22,7 @@ __pycache__
 /release/temp/
 /release/_temp/
 /release/dcef.exe
+/release/dcef.sh
 /release/dcef/storage/
 
 # build cache
