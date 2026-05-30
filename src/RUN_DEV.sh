@@ -78,17 +78,18 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 # ── Prefixed output helper ─────────────────────────────────────────────────────
-# Runs a command in the background, prefixes every output line with [label],
-# and appends its PID to PIDS for cleanup.
+# Usage: run_bg <label> <working_dir> <cmd> [args...]
+# Mirrors RUN_DEV.bat's per-pane -d <dir> flag: each service gets its own CWD
+# so relative paths inside each service resolve correctly.
 run_bg() {
-    local label=$1; shift
-    "$@" 2>&1 | sed -u "s/^/[$label] /" &
+    local label=$1 dir=$2; shift 2
+    (cd "$dir" && "$@" 2>&1 | sed -u "s/^/[$label] /") &
     PIDS+=($!)
 }
 
 # ── MongoDB ───────────────────────────────────────────────────────────────────
 echo "Starting MongoDB (data: $MONGODB_DATA)..."
-run_bg "mongodb" mongod \
+run_bg "mongodb" "$SCRIPT_DIR" mongod \
     --dbpath "$MONGODB_DATA" \
     --wiredTigerCacheSizeGB 1
 
@@ -108,16 +109,17 @@ echo "Running preprocess..."
 echo "Preprocess done."
 
 # ── FastAPI dev server (port 58001, reload=True) ──────────────────────────────
-run_bg "fastapi" \
-    "$SCRIPT_DIR/_temp/fastapi/venv/bin/python" \
-    "$SCRIPT_DIR/dcef/backend/fastapi/dev.py"
+# CWD must be the fastapi directory: the code opens "src/search/search_categories.json"
+# as a relative path, matching how RUN_DEV.bat sets -d to the fastapi folder.
+run_bg "fastapi" "$SCRIPT_DIR/dcef/backend/fastapi" \
+    "$SCRIPT_DIR/_temp/fastapi/venv/bin/python" dev.py
 
 # ── Vite frontend dev server (port 5050) ──────────────────────────────────────
-run_bg "vite" \
-    npm --prefix "$SCRIPT_DIR/dcef/frontend" run dev
+run_bg "vite" "$SCRIPT_DIR/dcef/frontend" \
+    npm run dev
 
 # ── nginx reverse proxy (port 21012) ──────────────────────────────────────────
-run_bg "nginx" \
+run_bg "nginx" "$SCRIPT_DIR" \
     nginx -c "$NGINX_CONF"
 
 echo ""
