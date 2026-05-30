@@ -20,7 +20,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-RELEASE_DIR="$SCRIPT_DIR/../release"
+RELEASE_DIR="$(realpath "$SCRIPT_DIR/../release")"
 
 # ── Python interpreter ────────────────────────────────────────────────────────
 # Match the version used in the Dockerfile (python3.11) where possible.
