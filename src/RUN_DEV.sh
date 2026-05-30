@@ -10,8 +10,8 @@
 #   - node.js v18+, npm
 #
 # Exports directory (for /input/ assets in the browser):
-#   By default points to ../release/exports/ so you can share exports between
-#   the dev and release environments. Override with DCEF_EXPORTS_DIR env var.
+#   By default points to src/exports/
+#   Override with DCEF_EXPORTS_DIR env var.
 
 set -e
 
@@ -22,7 +22,7 @@ cd "$SCRIPT_DIR"
 PYTHON=python3.11
 command -v "$PYTHON" &>/dev/null || PYTHON=python3
 
-EXPORTS_DIR="${DCEF_EXPORTS_DIR:-$SCRIPT_DIR/../release/exports}"
+EXPORTS_DIR="${DCEF_EXPORTS_DIR:-$SCRIPT_DIR/exports}"
 MONGODB_DATA="$SCRIPT_DIR/_temp/mongodb"
 
 # ── Prerequisites ─────────────────────────────────────────────────────────────
