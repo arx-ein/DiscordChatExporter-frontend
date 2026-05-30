@@ -164,7 +164,7 @@ fi
 # ── Launcher script ───────────────────────────────────────────────────────────
 # Shell-script equivalent of dcef.exe — starts all services and opens the browser.
 
-cp dcef/backend/linux/run.sh "$RELEASE_DIR/dcef.sh"
+cp dcef.sh "$RELEASE_DIR/dcef.sh"
 chmod +x "$RELEASE_DIR/dcef.sh"
 
 
