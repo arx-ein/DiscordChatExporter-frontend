@@ -3,7 +3,7 @@
 # ----------------------
 
 # build sveltekit static app
-FROM node:22.6.0-alpine3.19 as build
+FROM node:22.6.0-alpine3.19 AS build
 RUN mkdir -p /app/dcef/frontend
 WORKDIR /app/dcef/frontend
 COPY src/dcef/frontend/package.json src/dcef/frontend/package-lock.json ./
@@ -33,4 +33,4 @@ COPY src/dcef/backend/configurator/main.py ./configurator.py
 COPY src/dcef/backend/docker/run_container.sh ./run_container.sh
 RUN chmod 777 /dcef/run_container.sh
 EXPOSE 21011
-CMD /dcef/run_container.sh
+CMD ["/dcef/run_container.sh"]
