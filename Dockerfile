@@ -3,7 +3,7 @@
 # ----------------------
 
 # build sveltekit static app
-FROM node:22.6.0-alpine3.19 AS build
+FROM node:24.18.0-alpine3.24 AS build
 RUN mkdir -p /app/dcef/frontend
 WORKDIR /app/dcef/frontend
 COPY src/dcef/frontend/package.json src/dcef/frontend/package-lock.json ./
