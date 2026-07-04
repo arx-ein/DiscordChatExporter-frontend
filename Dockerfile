@@ -12,17 +12,17 @@ COPY src/dcef/frontend/ .
 RUN npm run build
 
 # main image
-FROM mongo:6.0.5-jammy
+FROM mongo:8.0.26-noble
 WORKDIR /dcef
-RUN apt-get update && apt-get install python3.11 python3-pip nginx wget -y
+RUN apt-get update && apt-get install python3.12 python3-pip nginx wget -y
 RUN mkdir -p /dcef/exports/
 COPY release/exports/ /dcef/exports/
 COPY src/dcef/backend/preprocess/requirements.txt /dcef/backend/preprocess/requirements.txt
 COPY src/dcef/backend/fastapi/requirements.txt /dcef/backend/fastapi/requirements.txt
 COPY src/dcef/backend/configurator/requirements.txt /dcef/backend/configurator/requirements.txt
-RUN python3.11 -m pip install -r /dcef/backend/preprocess/requirements.txt
-RUN python3.11 -m pip install -r /dcef/backend/fastapi/requirements.txt
-RUN python3.11 -m pip install -r /dcef/backend/configurator/requirements.txt
+RUN python3.12 -m pip install --break-system-packages -r /dcef/backend/preprocess/requirements.txt
+RUN python3.12 -m pip install --break-system-packages -r /dcef/backend/fastapi/requirements.txt
+RUN python3.12 -m pip install --break-system-packages -r /dcef/backend/configurator/requirements.txt
 RUN mkdir -p /dcef/backend/nginx/logs/
 COPY src/dcef/backend/nginx/conf/mime.types /dcef/backend/nginx/conf/mime.types
 COPY src/dcef/backend/nginx/conf/nginx-docker.conf /dcef/backend/nginx/conf/nginx-docker.conf
